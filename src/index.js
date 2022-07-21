@@ -13,7 +13,7 @@ var weekdays = [
 const ctx = document.getElementById('chart');
 let myBalance = document.getElementById('mybalance');
 let summary = document.getElementById('summary');
-let lastMonthSpendings = 200;
+let lastMonthSpendings = 200; //default value of spendings from last month to enable the calculation of the month-to-month ratio
 let summaryPercentage = document.getElementById('percentage');
 
 //Reading local JSON file
@@ -46,12 +46,12 @@ fetchJSON().then(keyValues => {
     if (sumSpendings > lastMonthSpendings) sign='+';
     summaryPercentage.innerHTML = sign + (((sumSpendings*100) / lastMonthSpendings)-100).toPrecision(3) + '%';
 
-    const chartData = {
+    const chartData = { //Setting the Chart.js data
         labels: dynamicLabel,
         datasets: [{
             label: 'Spendings (in $)',
             backgroundColor: color => {
-                let bgColor = color.index == (today-1) ? 'rgb(118, 181, 188)' : 'rgb(236, 119, 95)';
+                let bgColor = color.index == (today-1) ? 'rgb(118, 181, 188)' : 'rgb(236, 119, 95)'; //Condition that changes the color of today's bar
                 return bgColor;
             },
             borderRadius: 6,
@@ -59,7 +59,7 @@ fetchJSON().then(keyValues => {
         }]
     };
 
-    const config = {
+    const config = { //Configuration of the chart style and behaviour
         type: 'bar',
         data: chartData,
         options: {
